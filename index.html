@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blueberry Shop</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body{
+font-family:Arial,sans-serif;
+background:#f3f5f7;
+margin:0;
+padding:15px;
+}
+
+h1{
+text-align:center;
+}
+
+.card{
+background:#fff;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:#2ea44f;
+color:white;
+font-size:16px;
+margin-top:10px;
+}
+
+#cart{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#0088cc;
+color:white;
+padding:15px;
+border-radius:50px;
+font-weight:bold;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🫐 Blueberry Shop</h1>
+
+<div id="products"></div>
+
+<div id="cart">
+🛒 <span id="count">0</span>
+</div>
+
+<script>
+
+const products=[
+{
+id:1,
+name:"Голубика 1 кг",
+price:900
+},
+{
+id:2,
+name:"Варенье из голубики",
+price:450
+},
+{
+id:3,
+name:"Саженец голубики",
+price:700
+}
+];
+
+let cart=[];
+
+function render(){
+
+const container=document.getElementById("products");
+
+container.innerHTML="";
+
+products.forEach(item=>{
+
+container.innerHTML+=`
+<div class="card">
+<h3>${item.name}</h3>
+<p>${item.price} ₽</p>
+<button onclick="add(${item.id})">
+Добавить
+</button>
+</div>
+`;
+
+});
+
+}
+
+function add(id){
+
+cart.push(id);
+
+document.getElementById("count").innerText=cart.length;
+
+Telegram.WebApp.HapticFeedback.notificationOccurred("success");
+
+}
+
+render();
+
+Telegram.WebApp.expand();
+
+</script>
+
+</body>
+</html>
